@@ -13,6 +13,11 @@ RUN set -x \
 
 # configuration
 
+ADD vsftpd.conf /etc/vsftpd/vsftpd.conf
+
+RUN ln -sf /dev/stdout /var/log/vsftpd/vsftpd.log
+
+
 VOLUME /etc/vsftpd
 VOLUME /var/log/vsftpd
 
