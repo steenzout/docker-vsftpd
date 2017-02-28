@@ -5,6 +5,11 @@
 Resources to build an [Alpine][alpine] [vsftpd][vsftpd] container.
 
 
+## Dependencies
+
+- [hub.docker.com/_/alpine/](https://hub.docker.com/_/alpine/)
+
+
 ## Links
 
 - [vsftpd][vsftpd]
