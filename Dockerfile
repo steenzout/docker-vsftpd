@@ -17,3 +17,6 @@ VOLUME /etc/vsftpd
 VOLUME /var/log/vsftpd
 
 EXPOSE 20 21 10090-10100
+
+ENTRYPOINT ["/usr/sbin/vsftpd"]
+CMD ["/etc/vsftpd/vsftpd.conf"]
