@@ -12,8 +12,20 @@ Resources to build an [Alpine][alpine] [vsftpd][vsftpd] container.
 
 ## Usage
 
+Start:
+
 ```bash
-$ docker run -itd
+$ docker run \
+    --rm \
+    -td \
+    steenzout/vsftpd
+```
+
+Log files:
+
+```
+$ docker logs \
+    -f <container name>
 ```
 
 ## Links
