@@ -12,16 +12,15 @@ RUN set -x \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /etc/vsftpd \
     && mkdir -p /var/log/vsftpd \
-    && ln -sf /dev/stdout /var/log/vsftpd/vsftpd.log
+    && ln -sf /dev/stdout /var/log/vsftpd/vsftpd.log \
+    && mkdir -p /var/lib/vsftpd/chroot
 
 
 # configuration
 
 ADD vsftpd.conf /etc/vsftpd/vsftpd.conf
 
-ONBUILD RUN addgroup -S vsftpd \
-    && adduser -D -h ${FTP_HOME} -s /bin/false -G vsftpd ${FTP_USER} \
-    && addgroup ${FTP_USER} ${FTP_GROUP} \
+ONBUILD RUN adduser -D -h ${FTP_HOME} -s /bin/false ${FTP_USER} \
     && echo "root:$(echo ${FTP_PASSWORD} | mkpasswd)" | chpasswd \
     && mkdir -p /etc/vsftpd/users/${FTP_USER}
 
