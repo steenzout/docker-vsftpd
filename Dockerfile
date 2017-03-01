@@ -3,7 +3,7 @@ MAINTAINER Pedro Salgado "steenzout@ymail.com"
 
 ENV FTP_USER ftp_user
 ENV FTP_PASSWORD secret
-ENV FTP_HOME /var/vsftp
+ENV FTP_HOME /home/ftp_user
 
 # installation
 
@@ -22,7 +22,8 @@ ADD vsftpd.conf /etc/vsftpd/vsftpd.conf
 ONBUILD RUN addgroup -S vsftpd \
     && adduser -D -h ${FTP_HOME} -s /bin/false -G vsftpd ${FTP_USER} \
     && addgroup ${FTP_USER} ${FTP_GROUP} \
-    && echo "root:$(echo ${FTP_PASSWORD} | mkpasswd)" | chpasswd
+    && echo "root:$(echo ${FTP_PASSWORD} | mkpasswd)" | chpasswd \
+    && mkdir -p /etc/vsftpd/users/${FTP_USER}
 
 VOLUME /etc/vsftpd
 VOLUME /var/log/vsftpd
