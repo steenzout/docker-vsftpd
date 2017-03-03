@@ -1,9 +1,9 @@
 FROM alpine:latest
 MAINTAINER Pedro Salgado "steenzout@ymail.com"
 
-ENV FTP_USER ftp_user
-ENV FTP_PASSWORD secret
-ENV FTP_HOME /home/ftp_user
+ONBUILD ENV FTP_USER ftp_user
+ONBUILD ENV FTP_PASSWORD secret
+ONBUILD ENV FTP_HOME /home/ftp_user
 
 # installation
 
