@@ -1,9 +1,13 @@
 FROM alpine:latest
 MAINTAINER Pedro Salgado "steenzout@ymail.com"
 
-ONBUILD ENV FTP_USER ftp_user
-ONBUILD ENV FTP_PASSWORD secret
-ONBUILD ENV FTP_HOME /home/ftp_user
+ONBUILD ARG FTP_USER
+ONBUILD ARG FTP_PASSWORD
+ONBUILD ARG FTP_HOME
+
+ONBUILD ENV FTP_USER ${FTP_USER}
+ONBUILD ENV FTP_PASSWORD ${FTP_PASSWORD}
+ONBUILD ENV FTP_HOME ${FTP_HOME}
 
 # installation
 
@@ -12,6 +16,7 @@ RUN set -x \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /etc/vsftpd \
     && mkdir -p /var/log/vsftpd \
+    && chown vsftp /var/log/vsftpd \
     && ln -sf /dev/stdout /var/log/vsftpd/vsftpd.log \
     && mkdir -p /var/lib/vsftpd/chroot
 
