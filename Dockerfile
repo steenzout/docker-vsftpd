@@ -21,7 +21,7 @@ RUN set -x \
 ADD vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 ONBUILD RUN adduser -D -h ${FTP_HOME} -s /bin/false ${FTP_USER} \
-    && echo "root:$(echo ${FTP_PASSWORD} | mkpasswd)" | chpasswd \
+    && echo "${FTP_USER}:$(echo ${FTP_PASSWORD} | mkpasswd)" | chpasswd \
     && mkdir -p /etc/vsftpd/users/${FTP_USER}
 
 VOLUME /etc/vsftpd
