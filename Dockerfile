@@ -26,8 +26,11 @@ RUN set -x \
 ADD vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 ONBUILD RUN adduser -D -h ${FTP_HOME} -s /bin/false ${FTP_USER} \
-    && echo "${FTP_USER}:$(echo ${FTP_PASSWORD} | mkpasswd)" | chpasswd \
-    && mkdir -p /etc/vsftpd/users/${FTP_USER}
+    && echo "${FTP_USER}:$(echo ${FTP_PASSWORD} | mkpasswd -m SHA-512)" | chpasswd -e \
+    && mkdir -p /etc/vsftpd/users \
+    && touch ${FTP_USER} /etc/vsftpd/users/${FTP_USER} \
+    && chown ${FTP_USER} /etc/vsftpd/users/${FTP_USER} \
+    && echo ${FTP_USER} > /etc/vsftpd/vsftpd.chroot_list
 
 VOLUME /etc/vsftpd
 VOLUME /var/log/vsftpd
